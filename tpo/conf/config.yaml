@@ -1,0 +1,26 @@
+# In het_control/conf/config.yaml (or specific experiment config like navigation_ippo_config.yaml)
+
+defaults:
+  - experiment: tpo_experiment
+  - algorithm: iddpg
+  - task: vmas_sampling_config
+  - model: tpo
+  - model@critic_model: layers/mlp
+  - _self_
+
+seed: 0
+use_action_loss: True
+action_loss_lr: 0.00003
+
+simple_tag_freeze_policy: True
+simple_tag_freeze_policy_after_frames: 3_000_000
+
+# --- New parameters for Diversity Data Collection (Phase 1) ---
+enable_diversity_data_collection: False # Set to True for data collection runs
+diversity_data_collection_interval: 10000 # Collect data every X frames
+# ------------------------------------------------------------
+
+hydra:
+  searchpath:
+   # Tells hydra to add the default benchmarl configuration to its path
+    - pkg://benchmarl/conf
